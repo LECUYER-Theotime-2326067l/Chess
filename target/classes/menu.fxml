@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+
+<VBox alignment="TOP_CENTER" fillWidth="false" style="-fx-background-color: #302e2b;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label prefHeight="109.0" prefWidth="448.0" text="Play Chess Online on the #1 Site!" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+         <font>
+            <Font name="System Bold" size="40.0" />
+         </font>
+      </Label>
+      <GridPane>
+        <columnConstraints>
+          <ColumnConstraints halignment="CENTER" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints vgrow="ALWAYS" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Button mnemonicParsing="false" prefHeight="24.0" prefWidth="250.0" text="Button" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS" />
+            <Button mnemonicParsing="false" text="Button" GridPane.rowIndex="1" />
+         </children>
+      </GridPane>
+   </children>
+</VBox>
