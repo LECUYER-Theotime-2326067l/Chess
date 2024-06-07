@@ -35,6 +35,14 @@ public class ClickController {
 
     public static void selectPiece(int row, int col) {
         Piece piece = board.getPiece(row, col);
+        piece.updateValidMoves(row, col, board);
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                if (piece.getValidMoves()[i][j]) {
+                    System.out.println("Valid move: " + i + ", " + j);
+                }
+            }
+        }
         selectedPiece = piece;
         selectedRow = row;
         selectedCol = col;
@@ -57,7 +65,6 @@ public class ClickController {
             selectedPiece = null;
             boardView.updatePieces(true, row, col);
             chessController.toggleTurn();
-            HighlightController.highlightTile(row, col);
         }
         chessController.updateCheck();
 

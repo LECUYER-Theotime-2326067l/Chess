@@ -26,23 +26,40 @@ public class HighlightController {
     }
 
     public static void highlightValidMoves(Piece piece, int row, int col) {
+        int counter = 0;
+
         // Clear previous highlights
         clearHighlights();
 
-        Rectangle[][] squares = boardView.getSquares();
         Board board = boardView.getBoard();
 
         // Highlight the selected piece's tile
-        squares[row][col].setFill(HIGHLIGHT_COLOR);
+        highlightTile(row, col);
 
         // Highlight the valid moves
+//        for (int i = 0; i < 8; i++) {
+//            for (int j = 0; j < 8; j++) {
+//                if (piece.isValidMove(row, col, i, j, board) && (board.getPiece(i, j) == null || board.getPiece(i, j).isWhite() != piece.isWhite())) {
+//                    highlightTile(i, j);
+//                    counter++;
+//                    System.out.println("Highlighting: " + i + ", " + j);
+//                }
+//            }
+//        }
+
+        boolean[][] validMoves = piece.getValidMoves();
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
-                if (piece.isValidMove(row, col, i, j, board) && (board.getPiece(i, j) == null || board.getPiece(i, j).isWhite() != piece.isWhite())) {
-                    squares[i][j].setFill(HIGHLIGHT_COLOR);
+                if (validMoves[i][j] && (board.getPiece(i, j) == null || board.getPiece(i, j).isWhite() != piece.isWhite())) {
+                    highlightTile(i, j);
+                    counter++;
                     System.out.println("Highlighting: " + i + ", " + j);
                 }
             }
+        }
+
+        if (counter == 0 && piece.getClass().getSimpleName().equals("King")) {
+            System.out.println("No valid moves");
         }
     }
 
