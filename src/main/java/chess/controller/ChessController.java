@@ -1,7 +1,6 @@
 package chess.controller;
 
 import chess.model.Board;
-import chess.model.Piece;
 import chess.view.BoardView;
 
 public class ChessController {
@@ -48,6 +47,17 @@ public class ChessController {
     }
 
     public void updateCheck() {
+        if (board.isKingInCheckMate(true) || board.isKingInCheckMate(false)) {
+            System.out.println("Checkmate!");
+            GameController.setGameRunning(false);
+            GameController.endGame();
+            if (board.isKingInCheckMate(true)) {
+                FileController.writeToFile("Game" + GameController.getGameId() + ".txt", "Black wins!");
+            } else {
+                FileController.writeToFile("Game" + GameController.getGameId() + ".txt", "White wins!");
+            }
+            return;
+        }
         isWhiteInCheck = board.isKingInCheck(true);
         isBlackInCheck = board.isKingInCheck(false);
     }
