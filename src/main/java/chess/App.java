@@ -1,32 +1,33 @@
 package chess;
 
+import chess.controller.ChessController;
+import chess.model.Board;
 import chess.view.AppView;
+import chess.view.BoardView;
 import javafx.application.Application;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import chess.model.Board;
-import chess.view.BoardView;
-import chess.controller.ChessController;
 
 public class App extends Application {
 
     private static AppView appView;
 
+    private static Stage primaryStage;
+
+    public static void resetStage(AppView appView) {
+        primaryStage.setScene(new Scene(appView));
+        primaryStage.show();
+    }
+
     @Override
     public void start(Stage primaryStage) {
+        App.primaryStage = primaryStage;
         Board board = new Board();
         BoardView boardView = new BoardView(board);
         ChessController controller = new ChessController(board, boardView);
 
-        this.appView = new AppView(boardView);
+        appView = new AppView(boardView);
 
         System.out.println(appView.getChildren());
 
