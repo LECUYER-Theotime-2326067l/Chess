@@ -14,6 +14,11 @@ public class Pawn extends Piece {
         int direction = isWhite() ? -1 : 1;
         int startRow = isWhite() ? 6 : 1;
 
+        // Le Pion ne peut pas se déplacer sur sa propre case
+        if (startX == endX && startY == endY) {
+            return false;
+        }
+
         // Le Pion se déplace d'une case en avant ou de deux cases depuis sa position initiale
         if (startX + direction == endX && startY == endY && board.getPiece(endX, endY) == null) {
             return true;
