@@ -1,18 +1,18 @@
 package chess.view;
 
+import javafx.beans.property.StringProperty;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.TextAlignment;
 
 public class UserView extends HBox {
 
-    public UserView(String username, int level, boolean isBottom) {
+    public UserView(StringProperty username, int level, boolean isBottom) {
 
         super();
         setPrefWidth(640);
@@ -29,7 +29,8 @@ public class UserView extends HBox {
 
         HBox labelsContainer = new HBox();
         labelsContainer.setSpacing(5);
-        Label usernameLabel = new Label(username);
+        Label usernameLabel = new Label();
+        usernameLabel.textProperty().bind(username);
         usernameLabel.setStyle("-fx-text-fill: white; -fx-font-size: 18px; -fx-font-weight: bold;");
         Label levelLabel = new Label("(" + level + ")");
         levelLabel.setStyle("-fx-font-size: 14px; -fx-text-fill: #929292;");
