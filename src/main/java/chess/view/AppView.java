@@ -1,5 +1,6 @@
 package chess.view;
 
+import chess.controller.GameController;
 import chess.controller.MenuController;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -22,8 +23,8 @@ public class AppView extends HBox {
         gamePane.setPrefWidth(640);
         gamePane.setSpacing(5);
         gamePane.setAlignment(Pos.TOP_LEFT);
-        UserView whiteUser = new UserView("Alice", 3, true);
-        UserView blackUser = new UserView("Bob", 2, false);
+        UserView whiteUser = new UserView(GameController.firstPlayerUsernameProperty(), 3, true);
+        UserView blackUser = new UserView(GameController.secondPlayerUsernameProperty(), 2, false);
         gamePane.getChildren().addAll(blackUser, boardView, whiteUser);
         getChildren().add(gamePane);
 
@@ -41,7 +42,7 @@ public class AppView extends HBox {
         buttons.setAlignment(Pos.CENTER);
 
         MenuButtonView playOnlineButton = new MenuButtonView("#81b64c", "69,117,60", "Play Versus", "Play against other players", "/images/play_online.png");
-        playOnlineButton.setOnMouseClicked(e -> MenuController.startVersusGame());
+        playOnlineButton.setOnMouseClicked(e -> MenuController.openVersusMenu());
         MenuButtonView playComputerButton = new MenuButtonView("#454341", "62,60,58", "Play Computer", "Play against the computer", "/images/play_computer.png");
 
         buttons.add(playOnlineButton, 0, 0);
