@@ -58,6 +58,8 @@ public class GameController {
         App.removeMenu();
         setFirstPlayerUsername(firstPlayerName);
         setSecondPlayerUsername(secondPlayerName);
+        FileController.addPlayer(firstPlayerName);
+        FileController.addPlayer(secondPlayerName);
         String gameFileName = "Game" + getGameId() + ".txt";
         while (FileController.doFileExist(gameFileName)) {
             setGameId(GameController.getGameId() + 1);
