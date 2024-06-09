@@ -5,52 +5,55 @@ import chess.view.BoardView;
 
 public class ChessController {
 
+    private final Board board;
+
     public Board getBoard() {
         return board;
     }
 
-    private final Board board;
+    private final BoardView boardView;
 
     public BoardView getBoardView() {
         return boardView;
     }
 
-    private final BoardView boardView;
+    private boolean isWhiteTurn;
 
     public boolean isWhiteTurn() {
         return isWhiteTurn;
     }
 
-    private boolean isWhiteTurn;
-
     private boolean isWhiteInCheck;
+    private boolean isBlackInCheck;
 
     public boolean isWhiteInCheck() {
         return isWhiteInCheck;
     }
-
     public boolean isBlackInCheck() {
         return isBlackInCheck;
     }
 
-    private boolean isBlackInCheck;
-
     public void toggleTurn() {
+        // Méthode pour changer le tour du joueur
+        // (de blanc à noir ou de noir à blanc)
         isWhiteTurn = !isWhiteTurn;
     }
 
     public ChessController(Board board, BoardView boardView) {
-        this.board = board;
-        this.boardView = boardView;
+        // Initialisation d'une partie d'échecs
+        this.board = board; // Création d'un plateau
+        this.boardView = boardView; // Création d'une vue du plateau
         this.isWhiteTurn = true; // Le joueur blanc commence
         ClickController.setChessController(this);
     }
 
     public void updateCheck() {
+        // Méthode pour vérifier si un roi est en échec
+        // Si un roi est en échec et mat, la partie est terminée
         if (board.isKingInCheckMate(true) || board.isKingInCheckMate(false)) {
-            System.out.println("Checkmate!");
             GameController.setGameRunning(false);
             GameController.endGame();
+            // Écriture du résultat de la partie dans le fichier de la partie
             if (board.isKingInCheckMate(true)) {
                 FileController.writeToFile("Game" + GameController.getGameId() + ".txt", "Black wins!");
             } else {
@@ -58,14 +61,8 @@ public class ChessController {
             }
             return;
         }
+        // Si un roi est en échec, on met à jour les variables
         isWhiteInCheck = board.isKingInCheck(true);
         isBlackInCheck = board.isKingInCheck(false);
     }
-
-//    private void handleMouseClick(double x, double y) {
-//        int col = (int) (x / (boardView.getWidth() / 8));
-//        int row = (int) (y / (boardView.getHeight() / 8));
-//
-//        ClickController.handleTileClick(row, col);
-//    }
 }

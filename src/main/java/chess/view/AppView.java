@@ -12,13 +12,17 @@ import javafx.scene.layout.VBox;
 
 public class AppView extends HBox {
 
+    /**
+     * Vue principale de l'application
+     * @param boardView vue de l'échiquier
+     */
     public AppView(BoardView boardView) {
         super();
         setStyle("-fx-background-color:#302e2b");
-//        getChildren().add(boardView);
         setHgrow(this, Priority.ALWAYS);
         setAlignment(Pos.CENTER);
 
+        // Création des vues des utilisateurs
         VBox gamePane = new VBox();
         gamePane.setPrefWidth(640);
         gamePane.setSpacing(5);
@@ -28,6 +32,8 @@ public class AppView extends HBox {
         gamePane.getChildren().addAll(blackUser, boardView, whiteUser);
         getChildren().add(gamePane);
 
+        // Création du menu principal
+        // Création du titre
         VBox rightPane = new VBox();
         Label title = new Label("Play Chess Online\non the #1 Site!");
         title.setStyle("-fx-font-size: 37px; -fx-font-weight: bold; -fx-text-fill: white; -fx-text-alignment:center;");
@@ -36,6 +42,7 @@ public class AppView extends HBox {
         rightPane.setFillWidth(false);
         rightPane.setAlignment(Pos.TOP_CENTER);
 
+        // Création des boutons
         GridPane buttons = new GridPane();
         buttons.setVgap(20);
         buttons.setHgap(20);

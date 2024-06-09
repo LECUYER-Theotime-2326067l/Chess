@@ -8,11 +8,15 @@ import javafx.scene.layout.VBox;
 
 public class StartingView extends VBox {
 
+    /**
+     * Vue de démarrage d'une partie
+     */
     public StartingView() {
         super();
         setAlignment(Pos.CENTER);
         setSpacing(10);
 
+        // Crée le champ pour le nom du premier joueur
         VBox firstPlayer = new VBox();
         firstPlayer.setAlignment(Pos.CENTER_LEFT);
         firstPlayer.setSpacing(5);
@@ -21,6 +25,7 @@ public class StartingView extends VBox {
         TextField firstPlayerName = new TextField();
         firstPlayer.getChildren().addAll(firstPlayerLabel, firstPlayerName);
 
+        // Crée le champ pour le nom du second joueur
         VBox secondPlayer = new VBox();
         secondPlayer.setAlignment(Pos.CENTER_LEFT);
         secondPlayer.setSpacing(5);
@@ -29,6 +34,7 @@ public class StartingView extends VBox {
         TextField secondPlayerName = new TextField();
         secondPlayer.getChildren().addAll(secondPlayerLabel, secondPlayerName);
 
+        // Crée un bouton pour lancer la partie
         MenuButtonView startGameButton = new MenuButtonView("#81b64c", "69,117,60", "Start Game", "", "/images/play_online.png");
         startGameButton.setOnMouseClicked(e -> GameController.startVersusGame(firstPlayerName.getText(), secondPlayerName.getText()));
 

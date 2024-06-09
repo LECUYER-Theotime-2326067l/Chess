@@ -21,6 +21,15 @@ public class Bishop extends Piece {
         return false;
     }
 
+    /**
+     * Vérifie si le chemin entre deux cases est libre
+     * @param startX position x de départ
+     * @param startY position y de départ
+     * @param endX position x d'arrivée
+     * @param endY position y d'arrivée
+     * @param board plateau de jeu
+     * @return true si le chemin est libre, false sinon
+     */
     private boolean isPathClear(int startX, int startY, int endX, int endY, Board board) {
         int xDirection = Integer.compare(endX, startX);
         int yDirection = Integer.compare(endY, startY);

@@ -15,8 +15,8 @@ public class Queen extends Piece {
         int deltaX = Math.abs(endX - startX);
         int deltaY = Math.abs(endY - startY);
 
-        // Vérifier les mouvements valides pour la Reine
-        // La Reine peut se déplacer verticalement, horizontalement et diagonalement
+        // Vérifie les mouvements valides pour la Reine
+        // La reine peut se déplacer verticalement, horizontalement et diagonalement
         if (deltaX == deltaY || startX == endX || startY == endY) {
             // Vérifier s'il y a des pièces sur le chemin
             return isPathClear(startX, startY, endX, endY, board);
@@ -25,6 +25,15 @@ public class Queen extends Piece {
         return false;
     }
 
+    /**
+     * Vérifie si le chemin entre deux cases est libre
+     * @param startX position x de départ
+     * @param startY position y de départ
+     * @param endX position x d'arrivée
+     * @param endY position y d'arrivée
+     * @param board plateau de jeu
+     * @return true si le chemin est libre, false sinon
+     */
     private boolean isPathClear(int startX, int startY, int endX, int endY, Board board) {
         int xDirection = Integer.compare(endX, startX);
         int yDirection = Integer.compare(endY, startY);

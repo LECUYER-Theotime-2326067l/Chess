@@ -11,13 +11,22 @@ public class Rook extends Piece {
 
     @Override
     public boolean isValidMove(int startX, int startY, int endX, int endY, Board board) {
-        // La Tour se déplace en ligne droite
+        // La tour se déplace uniquement en ligne droite
         if (startX == endX || startY == endY) {
             return isPathClear(startX, startY, endX, endY, board);
         }
         return false;
     }
 
+    /**
+     * Vérifie si le chemin entre deux cases est libre
+     * @param startX position x de départ
+     * @param startY position y de départ
+     * @param endX position x d'arrivée
+     * @param endY position y d'arrivée
+     * @param board plateau de jeu
+     * @return true si le chemin est libre, false sinon
+     */
     private boolean isPathClear(int startX, int startY, int endX, int endY, Board board) {
         int xDirection = Integer.compare(endX, startX);
         int yDirection = Integer.compare(endY, startY);

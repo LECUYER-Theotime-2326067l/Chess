@@ -12,6 +12,12 @@ import javafx.scene.text.TextAlignment;
 
 public class UserView extends HBox {
 
+    /**
+     * Vue d'une carte utilisateur
+     * @param username pseudo de l'utilisateur
+     * @param level nombre de parties de l'utilisateur
+     * @param isBottom true si l'utilisateur est en bas, false sinon
+     */
     public UserView(StringProperty username, int level, boolean isBottom) {
 
         super();
@@ -20,6 +26,7 @@ public class UserView extends HBox {
         setFillHeight(true);
         setSpacing(5);
 
+        // Crée l'image de profil
         String userIconPath = isBottom ? "/images/white_user.png" : "/images/black_user.png";
         Image userImage = new Image(getClass().getResourceAsStream(userIconPath));
         ImageView userIcon = new ImageView(userImage);
@@ -27,6 +34,7 @@ public class UserView extends HBox {
         userIcon.setFitHeight(50);
         getChildren().add(userIcon);
 
+        // Crée le pseudo et le nombre de parties
         HBox labelsContainer = new HBox();
         labelsContainer.setSpacing(5);
         Label usernameLabel = new Label();
@@ -36,6 +44,7 @@ public class UserView extends HBox {
         levelLabel.setStyle("-fx-font-size: 14px; -fx-text-fill: #929292;");
         labelsContainer.getChildren().addAll(usernameLabel, levelLabel);
 
+        // Crée le compte à rebours (non fonctionnel)
         VBox counter = new VBox();
         counter.setAlignment(Pos.BOTTOM_RIGHT);
         counter.setStyle("-fx-background-color: #989795; -fx-background-radius: 5;");

@@ -11,13 +11,11 @@ import chess.model.Piece;
 public class BoardView extends GridPane {
 
     private final Board board;
-
     public Board getBoard() {
         return board;
     }
 
     private final Rectangle[][] squares;
-
     public Rectangle[][] getSquares() {
         return squares;
     }
@@ -38,13 +36,15 @@ public class BoardView extends GridPane {
         setVgap(-1);
     }
 
+    /**
+     * Dessine la représentation de l'échiquier
+     */
     private void drawBoard() {
         setVgap(0);
         setHgap(0);
-        // Dessiner le damier et ajouter des gestionnaires d'événements
+        // Dessine le damier et ajoute des gestionnaires d'événements sur les cases
         for (int row = 0; row < 8; row++) {
             for (int col = 0; col < 8; col++) {
-//                System.out.println("Drawing tile: " + row + ", " + col);
                 Color tileColor = (row + col) % 2 == 0 ? LIGHT_COLOR : DARK_COLOR;
                 Rectangle tile = new Rectangle(TILE_SIZE, TILE_SIZE, tileColor);
                 squares[row][col] = tile;
@@ -56,15 +56,17 @@ public class BoardView extends GridPane {
             }
         }
 
-        updatePieces(false,0,0);
+        updatePieces();
     }
 
-    public void updatePieces(boolean isUpdatedAfterMove, int newRow, int newCol) {
-        System.out.println("Updating pieces");
-        // Clear existing pieces
+    /**
+     * Met à jour les pièces sur l'échiquier
+     */
+    public void updatePieces() {
+        // Nettoie les pièces existantes
         getChildren().removeIf(node -> node instanceof PieceView);
 
-        // Add pieces
+        // Ajoute les nouvelles pièces
         for (int row = 0; row < 8; row++) {
             for (int col = 0; col < 8; col++) {
                 Piece piece = board.getPiece(row, col);
@@ -80,6 +82,11 @@ public class BoardView extends GridPane {
         }
     }
 
+    /**
+     * Crée une vue pour une pièce
+     * @param piece pièce à afficher
+     * @return vue de la pièce
+     */
     private PieceView createPieceView(Piece piece) {
         return new PieceView(piece);
     }

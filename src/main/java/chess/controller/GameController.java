@@ -10,56 +10,51 @@ import javafx.beans.property.StringProperty;
 public class GameController {
 
     private static int gameId = 1;
-    private static boolean gameRunning = false;
-    private static StringProperty firstPlayerUsername = new SimpleStringProperty();
-
-    public static boolean isGameRunning() {
-        return gameRunning;
-    }
-    private static StringProperty secondPlayerUsername = new SimpleStringProperty();
-
     public static int getGameId() {
         return gameId;
     }
-
     public static void setGameId(int gameId) {
         GameController.gameId = gameId;
     }
 
+    private static boolean gameRunning = false;
+    public static boolean isGameRunning() {
+        return gameRunning;
+    }
     public static void setGameRunning(boolean gameRunning) {
         GameController.gameRunning = gameRunning;
     }
 
-    public static String getFirstPlayerUsername() {
-        return firstPlayerUsername.get();
+    private static final StringProperty firstPlayerUsername = new SimpleStringProperty();
+    public static StringProperty firstPlayerUsernameProperty() {
+        return firstPlayerUsername;
     }
-
     public static void setFirstPlayerUsername(String firstPlayerUsername) {
         GameController.firstPlayerUsername.set(firstPlayerUsername);
     }
 
-    public static StringProperty firstPlayerUsernameProperty() {
-        return firstPlayerUsername;
+    private static final StringProperty secondPlayerUsername = new SimpleStringProperty();
+    public static StringProperty secondPlayerUsernameProperty() {
+        return secondPlayerUsername;
     }
-
-    public static String getSecondPlayerUsername() {
-        return secondPlayerUsername.get();
-    }
-
     public static void setSecondPlayerUsername(String secondPlayerUsername) {
         GameController.secondPlayerUsername.set(secondPlayerUsername);
     }
 
-    public static StringProperty secondPlayerUsernameProperty() {
-        return secondPlayerUsername;
-    }
-
+    /**
+     * Démarre une partie contre un joueur
+     * @param firstPlayerName nom du joueur
+     * @param secondPlayerName nom du joueur adverse
+     */
     public static void startVersusGame(String firstPlayerName, String secondPlayerName) {
+        // Cache le menu de choix des pseudonymes
         App.removeMenu();
         setFirstPlayerUsername(firstPlayerName);
         setSecondPlayerUsername(secondPlayerName);
         FileController.addPlayer(firstPlayerName);
         FileController.addPlayer(secondPlayerName);
+        // Initialise le fichier journal de la partie
+        // Si le fichier existe déjà, alors incrémenter l'identifiant de la partie
         String gameFileName = "Game" + getGameId() + ".txt";
         while (FileController.doFileExist(gameFileName)) {
             setGameId(GameController.getGameId() + 1);
@@ -69,13 +64,13 @@ public class GameController {
         setGameRunning(true);
     }
 
+    /**
+     * Finit une partie
+     */
     public static void endGame() {
-//        App.setAppView(new AppView(new BoardView(new Board())));
         Board board = new Board();
         BoardView boardView = new BoardView(board);
-        ChessController controller = new ChessController(board, boardView);
+        new ChessController(board, boardView);
         App.resetStage(new AppView(boardView));
-//        App.main(new String[]{}); // Restart the application
     }
-
 }
