@@ -7,6 +7,10 @@ import chess.model.Piece;
 public class PieceView extends ImageView {
     private final Piece piece;
 
+    /**
+     * Crée une vue pour une pièce
+     * @param piece pièce à afficher
+     */
     public PieceView(Piece piece) {
         this.piece = piece;
         setImage(getPieceImage());
@@ -14,6 +18,10 @@ public class PieceView extends ImageView {
         setFitHeight(80);
     }
 
+    /**
+     * Récupère l'image de la pièce
+     * @return image de la pièce
+     */
     private Image getPieceImage() {
         String pieceType = piece.getClass().getSimpleName().toLowerCase();
         String color = piece.isWhite() ? "white" : "black";
@@ -21,6 +29,10 @@ public class PieceView extends ImageView {
         return new Image(getClass().getResourceAsStream(imagePath));
     }
 
+    /**
+     * Récupère la pièce associée à la vue
+     * @return pièce associée
+     */
     public Piece getPiece() {
         return piece;
     }

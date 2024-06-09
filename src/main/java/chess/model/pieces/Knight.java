@@ -14,7 +14,7 @@ public class Knight extends Piece {
         int deltaX = Math.abs(endX - startX);
         int deltaY = Math.abs(endY - startY);
 
-        // Le Cavalier se déplace en "L"
+        // Le Cavalier se déplace en "L" dans n'importe quelle direction
         return (deltaX == 2 && deltaY == 1) || (deltaX == 1 && deltaY == 2);
     }
 }

@@ -8,8 +8,15 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Gestionnaire de fichiers externes
+ */
 public class FileController {
 
+    /**
+     * Crée un nouveau fichier
+     * @param fileName nom du fichier à créer
+     */
     public static void createNewFile(String fileName) {
         File file = new File(fileName);
         try {
@@ -24,11 +31,21 @@ public class FileController {
         }
     }
 
+    /**
+     * Vérifie si un fichier existe
+     * @param fileName nom du fichier à vérifier
+     * @return true si le fichier existe, false sinon
+     */
     public static boolean doFileExist(String fileName) {
         File file = new File(fileName);
         return file.exists();
     }
 
+    /**
+     * Ajoute une chaîne de caractères dans un fichier
+     * @param fileName nom du fichier
+     * @param content contenu à ajouter
+     */
     public static void writeToFile(String fileName, String content) {
         if (!doFileExist(fileName)) createNewFile(fileName);
         try {
@@ -44,6 +61,11 @@ public class FileController {
         }
     }
 
+    /**
+     * Réécrit un fichier avec une liste de chaînes de caractères
+     * @param fileName nom du fichier
+     * @param content contenu à réécrire
+     */
     public static void rewriteFile(String fileName, List<String> content) {
         if (!doFileExist(fileName)) createNewFile(fileName);
         try {
@@ -61,23 +83,26 @@ public class FileController {
         }
     }
 
+    /**
+     * Lit le fichier des joueurs et retourne une liste de joueurs avec leur nombre de parties jouées
+     * @return liste des joueurs
+     */
     public static List<String> readPlayers() {
         try {
-            List<String> allLines = Files.readAllLines(Paths.get("players.txt"));
-
-            for (String line : allLines) {
-                System.out.println(line);
-            }
-            return allLines;
+            return Files.readAllLines(Paths.get("players.txt"));
         } catch (IOException e) {
             createNewFile("players.txt");
-//            e.printStackTrace();
         }
-        return new ArrayList<String>();
+        return new ArrayList<>();
     }
 
+    /**
+     * Ajoute un joueur dans le fichier des joueurs
+     * Si le joueur existe déjà, incrémente le nombre de parties jouées
+     * @param player nom du joueur
+     */
     public static void addPlayer(String player) {
-        // if player already exists, append the number of played games
+        // Si le joueur existe déjà, incrémente le nombre de parties jouées
         boolean found = false;
         List<String> players = readPlayers();
         for (String p : players) {
@@ -98,5 +123,4 @@ public class FileController {
         }
         rewriteFile("players.txt", players);
     }
-
 }

@@ -5,11 +5,10 @@ import chess.model.pieces.*;
 
 public class Board {
 
+    private final Piece[][] board;
     public Piece[][] getBoard() {
         return board;
     }
-
-    private final Piece[][] board;
 
     public Board() {
         board = new Piece[8][8];
@@ -41,10 +40,23 @@ public class Board {
         board[7][7] = new Rook(true);
     }
 
+    /**
+     * Récupère la pièce à la position (x, y)
+     * @param x ligne de la pièce
+     * @param y colonne de la pièce
+     * @return la pièce si elle existe, null sinon
+     */
     public Piece getPiece(int x, int y) {
         return board[x][y];
     }
 
+    /**
+     * Déplace une pièce d'une position à une autre
+     * @param startX ligne de départ
+     * @param startY colonne de départ
+     * @param endX ligne d'arrivée
+     * @param endY colonne d'arrivée
+     */
     public void movePiece(int startX, int startY, int endX, int endY) {
         Piece piece = board[startX][startY];
         FileController.writeToFile("log.txt", (piece.isWhite() ? "White " : "Black ") + piece.getClass().getSimpleName() + " moved from " + startX + "," + startY + " to " + endX + "," + endY);
@@ -52,6 +64,11 @@ public class Board {
         board[startX][startY] = null;
     }
 
+    /**
+     * Récupère la position du roi
+     * @param isWhite couleur du roi
+     * @return position du roi
+     */
     public int[] getKingPosition(boolean isWhite) {
         for (int row = 0; row < 8; row++) {
             for (int col = 0; col < 8; col++) {
@@ -65,38 +82,23 @@ public class Board {
         return new int[]{-1, -1};
     }
 
+    /**
+     * Vérifie si le roi est en échec
+     * @param isWhite couleur du roi
+     * @return true si le roi est en échec, false sinon
+     */
     public boolean isKingInCheck(boolean isWhite) {
-//        int kingRow = -1;
-//        int kingCol = -1;
-//
-//        // Trouver la position du roi
-//        for (int row = 0; row < 8; row++) {
-//            for (int col = 0; col < 8; col++) {
-//                Piece piece = getPiece(row, col);
-//                if (piece instanceof King && piece.isWhite() == isWhite) {
-//                    kingRow = row;
-//                    kingCol = col;
-//                    break;
-//                }
-//            }
-//        }
-
         int[] kingPosition = getKingPosition(isWhite);
         int kingRow = kingPosition[0];
         int kingCol = kingPosition[1];
 
-        // Vérifier si une pièce adverse peut attaquer le roi
+        // Vérifie si une pièce adverse peut attaquer le roi
         for (int row = 0; row < 8; row++) {
             for (int col = 0; col < 8; col++) {
                 Piece piece = getPiece(row, col);
+                // Vérifie si la pièce est de la couleur opposée
                 if (piece != null && piece.isWhite() != isWhite) {
                     if (piece.isValidMove(row, col, kingRow, kingCol, this)) {
-                        System.out.println(String.valueOf(row) + col);
-                        if (isWhite) {
-                            System.out.println("White king is in check");
-                        } else {
-                            System.out.println("Black king is in check");
-                        }
                         return true;
                     }
                 }
@@ -105,6 +107,11 @@ public class Board {
         return false;
     }
 
+    /**
+     * Vérifie si le roi est en échec et mat
+     * @param isWhite couleur du roi
+     * @return true si le roi est en échec et mat, false sinon
+     */
     public boolean isKingInCheckMate(boolean isWhite) {
         int[] kingPosition = getKingPosition(isWhite);
         int kingRow = kingPosition[0];
@@ -126,8 +133,6 @@ public class Board {
                 }
             }
         }
-
         return true;
     }
-
 }
